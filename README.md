@@ -134,13 +134,85 @@ The application runs on CPU only
 
 Tkinter must be available (included with most Python installations on Windows)
 
-## Future Improvements
+## FWhat's New / key Modifications
 
-Improve preprocessing (centering by pixel mass, smoothing)
+Model & Training
 
-Data augmentation during training for better robustness
+Upgraded from MNIST digit-only classification to EMNIST ByClass, supporting:
 
-Display probability distribution for all digit classes
+Digits (0–9)
+
+Uppercase letters (A–Z)
+
+Lowercase letters (a–z)
+
+62 classes in total
+
+Added EMNIST-specific orientation correction (rotate + flip) during preprocessing
+
+Introduced light data augmentation (translation, rotation, zoom) to improve robustness
+
+Implemented validation split from training data
+
+Added training stabilisation using:
+
+Early stopping (best weights restored)
+
+Learning rate reduction on plateau
+
+Expanded evaluation with:
+
+Full 62×62 confusion matrix
+
+Detailed classification report (precision, recall, F1-score)
+
+Identification of most frequently confused class pairs
+
+Exported reusable inference assets:
+
+Trained .keras model
+
+class_names.txt for class index → character mapping
+
+Drawing Pad & Inference
+
+Extended drawing pad to support digits and letters, not just numbers
+
+Added live prediction loop (automatic inference every ~150 ms)
+
+Implemented Top-K probability display for better interpretability
+
+Added ink centering and scaling to better match EMNIST data distribution
+
+Introduced 28×28 preview panel showing the exact input fed to the model
+
+Added configurable preprocessing toggles:
+
+Optional color inversion
+
+Optional rotation and horizontal flip to match training orientation
+
+Improved UX with:
+
+Adjustable brush size
+
+Confidence score display
+
+Clean separation between drawing, preview, and prediction panels
+
+Engineering & Reproducibility
+
+Clear separation between:
+
+Training / evaluation (train_emnist_byclass.py)
+
+Inference / GUI (draw_pad_predict_emnist.py)
+
+Model and class-label mapping saved explicitly for deployment
+
+Code structured for easy extension (e.g. EMNIST Letters-only, MNIST fallback)
+
+Designed to run out-of-the-box on CPU with minimal dependencies
 
 ## License
 
